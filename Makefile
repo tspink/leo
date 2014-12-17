@@ -33,6 +33,7 @@ all: $(out) $(test)
 clean:
 	rm -f $(out)
 	rm -f $(obj)
+	rm -f $(test) $(testdir)/led-test.o
 
 $(out): $(lds) $(obj)
 	@echo "  LD    $(notdir $@)"
