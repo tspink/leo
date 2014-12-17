@@ -14,6 +14,7 @@ SECTIONS
 		_start_text = .;
 		KEEP(*(.init.vector_table))
 		*(.text)
+		*(.text.*)
 		*(.rodata)
 		_start_init_array = .;
 		*(.init_array)
