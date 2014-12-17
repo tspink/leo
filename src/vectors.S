@@ -1,24 +1,12 @@
-.globl vector_table
-vector_table:
-	.word 0				/* SP_MAIN */
+.section .init.vector_table,"x"
+.globl _init_vector_table
+_init_vector_table:
+	.word _stack_top	/* SP_MAIN */
+	.word reset_handler	/* RESET */
 
-	.word undefined_handler		/* RESET */
-	.word undefined_handler		/* NMI */
-	.word undefined_handler		/* HARD FAULT */
-	.word undefined_handler		/* MEM MANAGE */
-	.word undefined_handler		/* BUS FAULT */
-	.word undefined_handler		/* USAGE FAULT */
-	.word undefined_handler		/* RSVD */
-	.word undefined_handler		/* RSVD */
-	.word undefined_handler		/* RSVD */
-	.word undefined_handler		/* RSVD */
-	.word undefined_handler		/* SVCALL */
-	.word undefined_handler		/* DEBUG MONITOR */
-	.word undefined_handler		/* RSVD */
-	.word undefined_handler		/* PENDSV */
-	.word undefined_handler		/* SYSTICK */
-	.word undefined_handler		/* EXTINT0 */
-	/* ... */
+	.rept 153
+	.word _init_undef_handler
+	.endr
 
-undefined_handler:
-	b undefined_handler
+_init_undef_handler:
+	b _init_undef_handler
