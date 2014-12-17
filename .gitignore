@@ -2,3 +2,4 @@
 *.a
 config
 test/led-test
+nbproject
