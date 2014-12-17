@@ -4,21 +4,36 @@
 using namespace leo;
 
 extern Application *main_application;
+Application *main_application __attribute__((weak));
 
+/**
+ * Construct a new LEO on the given platform.
+ */
 Leo::Leo(Platform& platform) : _platform(platform)
 {
 
 }
 
-void Leo::start()
+/**
+ * Start LEO
+ */
+bool Leo::start()
 {
 	// Initialise the platform
 	if (!_platform.initialise()) {
-		return;
+		return false;
 	}
 	
-	// Run the application
+	//_platform.debug_uart().
+	
+	// Run the application (if there is one)
+	bool result = true;
 	if (main_application) {
-		main_application->run(*this);
+		result = main_application->run(*this);
 	}
+
+	// Shut down the platform	
+	_platform.shutdown();
+	
+	return result;
 }

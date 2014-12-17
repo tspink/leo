@@ -3,7 +3,7 @@
 class LedTestApplication : public leo::Application
 {
 public:
-	void run(leo::Leo& leo)
+	bool run(leo::Leo& leo)
 	{
 		unsigned char *portf_base = (unsigned char *)0x4005d000;
 		unsigned int *portf_gpiodata = (unsigned int *)portf_base;
@@ -30,6 +30,8 @@ public:
 			portf_gpiodata[6] = 4;
 			for (i = 0; i < 1000000; i++);
 		}
+		
+		return true;
 	}
 };
 

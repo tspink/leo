@@ -10,7 +10,15 @@ namespace leo
 		class Launchpad : public Platform
 		{
 		public:
+			Launchpad();
+			
 			bool initialise();
+			void shutdown();
+			
+			leo::hw::uart::UART& debug_uart();
+			
+		private:
+			leo::hw::uart::UART *_debug_uart;
 		};
 	}
 }

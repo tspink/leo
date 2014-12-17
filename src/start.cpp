@@ -17,9 +17,15 @@ extern "C" {
 	typedef void (*init_fn_t)(void);
 	extern init_fn_t _start_init_array, _end_init_array;
 	
+	/**
+	 * Executes all the registered static constructors (if any)
+     */
 	static void execute_static_constructors()
 	{
 		init_fn_t *init_fns = &_start_init_array;
+		if (!init_fns) {
+			return;
+		}
 		
 		while (init_fns < &_end_init_array) {
 			init_fn_t init_fn = *init_fns++;
@@ -27,6 +33,9 @@ extern "C" {
 		}
 	}
 
+	/**
+	 * This is the initial reset handler.
+     */
 	void reset_handler() __attribute__ ((noreturn,cold));
 	void reset_handler()
 	{

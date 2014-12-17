@@ -9,7 +9,7 @@ namespace leo
 	{
 	public:
 		Leo(Platform& platform);
-		void start();
+		bool start();
 		
 		inline Platform& platform() const { return _platform; }
 		
@@ -20,7 +20,7 @@ namespace leo
 	class Application
 	{
 	public:
-		virtual void run(Leo& leo) = 0;
+		virtual bool run(Leo& leo) = 0;
 	};
 }
 
