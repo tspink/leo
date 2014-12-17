@@ -18,5 +18,7 @@ void Leo::start()
 	}
 	
 	// Run the application
-	main_application->run(*this);
+	if (main_application) {
+		main_application->run(*this);
+	}
 }

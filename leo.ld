@@ -16,6 +16,7 @@ SECTIONS
 		*(.text)
 		*(.text.*)
 		*(.rodata)
+		*(.rodata.*)
 		_start_init_array = .;
 		*(.init_array)
 		_end_init_array = .;
@@ -26,12 +27,14 @@ SECTIONS
 	{
 		_start_data = .;
 		*(.data)
+		*(.data.*)
 		_end_data = .;
 	}>RAM AT >FLASH
 	
 	.bss :
 	{
 		_start_bss = .;
+		*(.bss)
 		*(.bss.*)
 		*(COMMON)
 		_end_bss = .;
