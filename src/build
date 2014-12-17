@@ -1,2 +1,4 @@
-obj-y := init.o start.o vectors.o
+obj-y := start.o vectors.o leo.o
 obj-y += platform/launchpad.o
+obj-y += util/support.o
+

@@ -1,15 +1,33 @@
 #include <leo.h>
+#include <platform/launchpad.h>
+
+static void leo_start()
+{
+	leo::platform::Launchpad platform;
+	leo::Leo leo(platform);
+	
+	leo.start();
+}
 
 extern "C" {
-
 	extern unsigned long _start_text, _end_text;
 	extern unsigned long _start_data, _end_data;
 	extern unsigned long _start_bss, _end_bss;
 
-	extern void leo_start(void);
+	typedef void (*init_fn_t)(void);
+	extern init_fn_t _start_init_array, _end_init_array;
+	
+	static void execute_static_constructors()
+	{
+		init_fn_t *init_fns = &_start_init_array;
+		
+		while (init_fns < &_end_init_array) {
+			init_fn_t init_fn = *init_fns++;
+			if (init_fn) init_fn();
+		}
+	}
 
 	void reset_handler() __attribute__ ((noreturn,cold));
-
 	void reset_handler()
 	{
 		unsigned long *src, *dest;
@@ -28,6 +46,9 @@ extern "C" {
 			*dest++ = 0;
 		}
 
+		// Call C++ static constructors
+		execute_static_constructors();
+		
 		// Start LEO
 		leo_start();
 

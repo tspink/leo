@@ -15,6 +15,9 @@ SECTIONS
 		KEEP(*(.init.vector_table))
 		*(.text)
 		*(.rodata)
+		_start_init_array = .;
+		*(.init_array)
+		_end_init_array = .;
 		_end_text = .;
 	}>FLASH
 	

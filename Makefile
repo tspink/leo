@@ -11,6 +11,7 @@ obj :=
 
 -include $(srcdir)/build
 obj := $(patsubst %,$(srcdir)/%,$(obj-y))
+dep := $(patsubst %.o,%.d,$(obj))
 
 pfx := arm-unknown-linux-gnueabi-
 -include $(topdir)/config
@@ -22,17 +23,18 @@ ar  := $(pfx)ar
 ld  := $(pfx)ld
 
 common-flags := -I$(incdir) -march=armv7-m -mthumb
-common-cflags := -Wall -nostdlib -O0 -pedantic
+common-cflags := -Wall -nostdlib -O0 -pedantic -g
 
 asflags  := $(common-flags)
-cflags   := $(common-flags) $(common-cflags) -std=gnu99
-cxxflags := $(common-flags) $(common-cflags) -fno-exceptions -std=gnu++98
+cflags   := $(common-flags) $(common-cflags) -MD -std=gnu99
+cxxflags := $(common-flags) $(common-cflags) -MD -fno-exceptions -fno-rtti -std=gnu++98
 
 all: $(out) $(test)
 
 clean:
 	rm -f $(out)
 	rm -f $(obj)
+	rm -f $(dep)
 	rm -f $(test) $(testdir)/led-test.o
 
 $(out): $(lds) $(obj)

@@ -1,5 +1,6 @@
 *.o
 *.a
+*.d
 config
 test/led-test
 nbproject
