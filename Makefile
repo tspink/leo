@@ -10,10 +10,11 @@ lds := leo.ld
 obj :=
 
 -include $(srcdir)/build
-
 obj := $(patsubst %,$(srcdir)/%,$(obj-y))
 
 pfx := arm-unknown-linux-gnueabi-
+-include $(topdir)/config
+
 cc  := $(pfx)gcc
 cxx := $(pfx)g++
 as  := $(pfx)as

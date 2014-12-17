@@ -1,3 +1,4 @@
 *.o
 *.a
+config
 test/led-test
