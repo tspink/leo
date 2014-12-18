@@ -18,7 +18,19 @@ void Launchpad::shutdown()
 	
 }
 
-leo::hw::uart::UART& Launchpad::debug_uart()
+int Launchpad::ticks() const
 {
-	return *_debug_uart;
+	return 0;
+}
+
+leo::hw::uart::UART *Launchpad::get_uart(int id)
+{
+	if (id != 0)
+		return NULL;
+	return _debug_uart;
+}
+
+leo::hw::gpio::GPIO *Launchpad::get_gpio(int id)
+{
+	return NULL;
 }

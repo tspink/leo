@@ -1,6 +1,10 @@
 #ifndef __PLATFORM_H__
 #define	__PLATFORM_H__
 
+#define HZ	1
+#define kHZ	1e3
+#define MHZ	1e6
+
 namespace leo
 {
 	namespace hw
@@ -8,6 +12,7 @@ namespace leo
 		namespace uart
 		{
 			class UART;
+			class GPIO;
 		}
 	}
 	
@@ -18,8 +23,10 @@ namespace leo
 		virtual void shutdown() = 0;
 		
 		virtual int freq() const = 0;
+		virtual int ticks() const = 0;
 		
-		virtual hw::uart::UART& debug_uart() = 0;
+		virtual hw::uart::UART *get_uart(int id) = 0;
+		virtual hw::gpio::GPIO *get_gpio(int id) = 0;
 	};
 }
 

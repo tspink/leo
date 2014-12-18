@@ -36,21 +36,22 @@ namespace leo
 					Active
 				};
 
-				void direction(GPIODirection new_direction);
-				GPIODirection direction();
+				void direction(GPIODirection new_direction) = 0;
+				GPIODirection direction() = 0;
 				
-				void set_feature(GPIOFeature feature);
-				void clear_feature(GPIOFeature feature);
-				GPIOFeature features();
+				bool is_feature_supported(GPIOFeature feature) = 0;
+				void set_feature(GPIOFeature feature) = 0;
+				void clear_feature(GPIOFeature feature) = 0;
+				GPIOFeature features() = 0;
 				
-				void set_state(GPIOState state);
-				void toggle_state();
-				GPIOState state();
+				void set_state(GPIOState state) = 0;
+				void toggle_state() = 0;
+				GPIOState state() = 0;
 				
-				void enable();
-				void disable();
-				bool enabled();
-				bool disabled();
+				void enable() = 0;
+				void disable() = 0;
+				bool enabled() = 0;
+				bool disabled() = 0;
 			};
 		}
 	}
