@@ -15,6 +15,8 @@ namespace leo
 			bool initialise();
 			void shutdown();
 			
+			int freq() const { return 0; }
+			
 			leo::hw::uart::UART& debug_uart();
 			
 		private:

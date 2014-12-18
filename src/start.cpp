@@ -6,6 +6,7 @@ static void leo_start()
 	leo::platform::Launchpad platform;
 	leo::Leo leo(platform);
 	
+	// Start LEO.
 	leo.start();
 }
 
@@ -22,14 +23,21 @@ extern "C" {
      */
 	static void execute_static_constructors()
 	{
+		// Locate the start of the init function array, and make sure it's
+		// valid.
 		init_fn_t *init_fns = &_start_init_array;
 		if (!init_fns) {
 			return;
 		}
 		
+		// Iterate over the initialisation functions and execute them.
 		while (init_fns < &_end_init_array) {
 			init_fn_t init_fn = *init_fns++;
-			if (init_fn) init_fn();
+			
+			// If the initialisation function is valid, execute it.
+			if (init_fn) {
+				init_fn();
+			}
 		}
 	}
 

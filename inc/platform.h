@@ -17,6 +17,8 @@ namespace leo
 		virtual bool initialise() = 0;
 		virtual void shutdown() = 0;
 		
+		virtual int freq() const = 0;
+		
 		virtual hw::uart::UART& debug_uart() = 0;
 	};
 }

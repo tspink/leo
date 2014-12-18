@@ -1,10 +1,6 @@
-q := @
-topdir := $(CURDIR)
-srcdir := $(topdir)/src
-incdir := $(topdir)/inc
-testdir := $(topdir)/test
+export leodir := $(CURDIR)
+-include build/Makefile.defs
 
-test := $(testdir)/led-test
 out := leo.o
 lds := leo.ld
 obj :=
@@ -13,21 +9,7 @@ obj :=
 obj := $(patsubst %,$(srcdir)/%,$(obj-y))
 dep := $(patsubst %.o,%.d,$(obj))
 
-pfx := arm-unknown-linux-gnueabi-
--include $(topdir)/config
-
-cc  := $(pfx)gcc
-cxx := $(pfx)g++
-as  := $(pfx)as
-ar  := $(pfx)ar
-ld  := $(pfx)ld
-
-common-flags := -I$(incdir) -march=armv7-m -mthumb
-common-cflags := -Wall -nostdlib -O0 -pedantic -g
-
-asflags  := $(common-flags)
-cflags   := $(common-flags) $(common-cflags) -MD -std=gnu99
-cxxflags := $(common-flags) $(common-cflags) -MD -fno-exceptions -fno-rtti -std=gnu++98
+-include build/Makefile.build
 
 all: $(out) $(test)
 
@@ -35,23 +17,9 @@ clean:
 	rm -f $(out)
 	rm -f $(obj)
 	rm -f $(dep)
-	rm -f $(test) $(testdir)/led-test.o
 
 $(out): $(lds) $(obj)
 	@echo "  LD    $(notdir $@)"
 	$(q)$(ld) -r -o $@ $(obj)
 	
-$(test): $(out) $(testdir)/led-test.o
-	$(ld) -o $@ -T $(lds) $^
-
-%.o: %.c
-	@echo "  CC    $(notdir $@)"
-	$(q)$(cc) -c -o $@ $(cflags) $<
-
-%.o: %.cpp
-	@echo "  C++   $(notdir $@)"
-	$(q)$(cxx) -c -o $@ $(cxxflags) $<
-
-%.o: %.S
-	@echo "  AS    $(notdir $@)"
-	$(q)$(as) -o $@ $(asflags) $<
+-include $(dep)

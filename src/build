@@ -1,4 +1,16 @@
+#
+# Main
+#
 obj-y := start.o vectors.o leo.o
-obj-y += platform/launchpad.o
-obj-y += util/support.o
 
+# Hardware
+obj-y += hw/gpio/gpio.o hw/uart/uart.o
+
+# Platform
+obj-y += platform/launchpad.o
+
+# System
+obj-y += sys/irq.o
+
+# Utility
+obj-y += util/mm.o util/support.o util/string.o

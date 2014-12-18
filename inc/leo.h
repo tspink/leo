@@ -1,6 +1,8 @@
 #ifndef __LEO_H__
 #define __LEO_H__
 
+#include <sys/irq.h>
+
 namespace leo
 {
 	class Platform;
@@ -13,8 +15,13 @@ namespace leo
 		
 		inline Platform& platform() const { return _platform; }
 		
+		void delay(int ms);
+		
 	private:
+		sys::IRQManager irq;
 		Platform& _platform;
+		
+		void relocate_exception_vectors();
 	};
 	
 	class Application

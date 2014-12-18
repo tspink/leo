@@ -1,8 +1,9 @@
 #include <platform/launchpad.h>
+#include <hw/uart/uart.h>
 
 using namespace leo::platform;
 
-Launchpad::Launchpad() : _debug_uart(0)
+Launchpad::Launchpad() : _debug_uart(new hw::uart::NullUART())
 {
 	
 }
